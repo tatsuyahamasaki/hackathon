@@ -4,7 +4,7 @@ from datetime import datetime
 from tkcalendar import Calendar
 import json
 
-# 保存するファイル名
+# タスクデータを保存するためのファイル名
 DATA_FILE = "tasks_with_calendar.json"
 
 # カレンダーダイアログのクラス
@@ -112,7 +112,7 @@ def show_near_deadline():
 
 # アプリ終了処理
 def on_closing():
-    save_data(data)
+    save_data(data)#アプリが閉じられるときにデータ保存
     root.destroy()
 
 # メインウィンドウの設定
