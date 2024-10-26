@@ -126,6 +126,8 @@ data = load_data()
 root.task_list = tk.Listbox(root, selectmode="multiple", bd=10)
 root.task_list.pack(fill="both", expand=True, padx=20, pady=(10, 0))  # ボタンの上に配置
 
+update_task_list()
+
 # ボタンの配置
 frame = tk.Frame(root)
 frame.pack(pady=10)
