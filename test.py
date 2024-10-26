@@ -68,19 +68,32 @@ def toggle_task():
     else:
         messagebox.showwarning("エラー", "そのタスクは存在しません。")
 
-# タスクの削除
+# タスクの削除 -> ListBoxで選択してからボタンを押すと消せるようにした
 def delete_task():
-    task = simpledialog.askstring("タスク削除", "削除するタスクを入力してください:")
-    if task in data:
-        del data[task]
+    # 選択されたタスクのインデックスを取得
+    selected_indices = root.task_list.curselection()
+    
+    if selected_indices:
+        # 選択されたインデックスを逆順で処理
+        for index in selected_indices[::-1]:
+            # リストボックスからタスクを削除
+            task = root.task_list.get(index)  # インデックスを使ってタスク名を取得
+            root.task_list.delete(index)  # リストボックスから削除
+
+            # タスク名をデータから削除
+            del data[task.split(' - ')[0]]  # タスク名を取得してデータから削除
+
+        # データをファイルに保存
         save_data(data)
-        messagebox.showinfo("成功", f"「{task}」が削除されました。")
 
         # リストボックスを更新
         update_task_list()
 
+        # 成功メッセージを表示
+        messagebox.showinfo("成功", "選択されたタスクが削除されました。")
     else:
-        messagebox.showwarning("エラー", "そのタスクは存在しません。")
+        # ListBoxを選択していないメッセージを表示
+        messagebox.showinfo("失敗", "ListBoxを選択してください")
 
 # タスクのリストボックスを更新
 def update_task_list():
