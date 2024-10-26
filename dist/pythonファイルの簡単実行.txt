@@ -1,0 +1,29 @@
+使い方：
+PyInstallerがdistフォルダにある.exeファイルをダブルクリックする。
+プログラムに必要な依存関係も一緒にパッケージ化されているため、PythonがインストールされていないPCでも動作します。
+
+作り方：
+①PyInstallerのインストール
+まず、PyInstallerをインストールします。
+bash
+pip install pyinstaller
+②実行ファイルを作成する
+コマンドプロンプトで、Pythonスクリプトがあるディレクトリに移動し、次のコマンドを入力します。
+bash
+pyinstaller --onefile your_script.py
+
+このコマンドで1つの.exeファイルにまとめられた実行ファイルが作成されます。
+
+注意: 
+.exeファイルはWindows専用ですが、他のOSで実行できる形式も作成可能です（以下を参照）
+
+
+
+MacやLinux向けの実行ファイルを作成:
+PyInstallerでMacやLinux向けのバイナリを作成できますが、OSごとにバイナリを作成する必要があります。例えば、Mac上で.app形式、Linux上で実行可能ファイルを作ることができます。
+
+bash
+# macOSでの実行ファイル作成例
+pyinstaller --onefile your_script.py
+
+注: macOSやLinuxでは、作成した実行ファイルの配布時に実行権限が必要になる場合があるため、第三者に伝える際に「実行権限の付与が必要」としておくとスムーズです。
