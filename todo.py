@@ -21,10 +21,10 @@ class CalendarDialog(simpledialog.Dialog):
         self.selected_date = self.calendar.get_date()
 
 # 時刻入力ダイアログの関数（ドロップダウン形式、分は15分単位）
+# 時刻入力ダイアログの関数（ドロップダウン形式、分は15分単位）
 def select_time():
     time_window = tk.Toplevel(root)
     time_window.title("時刻を選択")
-    time_window.geometry("+300+250")
     
     # 時と分のドロップダウンリストを作成
     hour_var = tk.StringVar(time_window)
@@ -34,8 +34,8 @@ def select_time():
     hour_menu.grid(row=0, column=1, padx=10, pady=10)
     
     minute_var = tk.StringVar(time_window)
-    minute_var.set("45")  # デフォルトを45に設定
-    minutes = ["00", "15", "30", "45"]  # 15分単位の選択肢
+    minute_var.set("59")  # デフォルトを59に設定
+    minutes = ["00", "15", "30", "45","59"]  # 15分単位の選択肢
     minute_menu = tk.OptionMenu(time_window, minute_var, *minutes)
     minute_menu.grid(row=0, column=3, padx=10, pady=10)
 
@@ -50,12 +50,22 @@ def select_time():
         time_window.destroy()
         return f"{selected_hour}:{selected_minute}"
 
+    # Enterキーでデフォルト設定を適用
+    def apply_default(event=None):
+        hour_var.set("23")
+        minute_var.set("59")
+        set_time()
+
+    # Enterキーをバインド
+    time_window.bind("<Return>", apply_default)
+
+    # OKボタン
     ok_button = tk.Button(time_window, text="OK", command=set_time)
     ok_button.grid(row=1, column=1, columnspan=3, pady=10)
-    
-    time_window.wait_window()  # ウィンドウが閉じられるまで待機
 
+    time_window.wait_window()  # ウィンドウが閉じられるまで待機
     return f"{hour_var.get()}:{minute_var.get()}"
+
 
 # タスクデータの読み込み（リスト形式）
 def load_data():
